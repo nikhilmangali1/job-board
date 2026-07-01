@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { relativeDate, getInitials, JOB_TYPE_STYLES } from "@/lib/utils";
 
 type Job = {
   id: number;
@@ -36,12 +37,19 @@ export default function JobDetailPage() {
       <Link href="/" className="text-sm text-blue-600 dark:text-blue-400 hover:underline mb-4 inline-block">&larr; Back to jobs</Link>
 
       <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border dark:border-gray-700 transition-colors">
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{job.title}</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">{job.company} &middot; {job.location}</p>
+        <div className="flex items-start gap-3 mb-4">
+          <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center text-base font-semibold shrink-0">
+            {getInitials(job.company)}
           </div>
-          <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-3 py-1.5 rounded-full">{job.type}</span>
+          <div className="flex-1">
+            <div className="flex justify-between items-start">
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{job.title}</h1>
+                <p className="text-gray-600 dark:text-gray-400 mt-1">{job.company} &middot; {job.location}</p>
+              </div>
+              <span className={`text-xs font-medium px-3 py-1.5 rounded-full whitespace-nowrap ${JOB_TYPE_STYLES[job.type] || "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"}`}>{job.type}</span>
+            </div>
+          </div>
         </div>
 
         {job.salary_range && (
@@ -60,9 +68,7 @@ export default function JobDetailPage() {
           </div>
         )}
 
-        <p className="text-xs text-gray-400 dark:text-gray-500 mt-6">
-          Posted on {new Date(job.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-        </p>
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-6">{relativeDate(job.created_at)}</p>
       </div>
     </div>
   );

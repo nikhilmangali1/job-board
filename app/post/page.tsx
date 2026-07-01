@@ -37,7 +37,7 @@ export default function PostJobPage() {
         throw new Error(data.error || "Failed to post job");
       }
 
-      router.push("/");
+      router.push("/?toast=Job+posted+successfully");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
