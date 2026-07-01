@@ -47,35 +47,35 @@ export default function PostJobPage() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Post a Job</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Post a Job</h1>
 
-      {error && <p className="text-red-600 bg-red-50 p-3 rounded-lg mb-4">{error}</p>}
+      {error && <p className="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 p-3 rounded-lg mb-4">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-sm border space-y-4">
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border dark:border-gray-700 space-y-4 transition-colors">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Job Title *</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Job Title *</label>
           <input name="title" value={form.title} onChange={handleChange} required
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Company *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Company *</label>
             <input name="company" value={form.company} onChange={handleChange} required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Location *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location *</label>
             <input name="location" value={form.location} onChange={handleChange} required
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Job Type *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Job Type *</label>
             <select name="type" value={form.type} onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
               <option>Full-time</option>
               <option>Part-time</option>
               <option>Contract</option>
@@ -84,26 +84,26 @@ export default function PostJobPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Salary Range</label>
-            <input name="salary_range" value={form.salary_range} onChange={handleChange} placeholder="e.g. $80k - $120k"
-              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Salary Range</label>
+            <input name="salary_range" value={form.salary_range} onChange={handleChange} placeholder="e.g. 12 LPA - 18 LPA"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Description *</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description *</label>
           <textarea name="description" value={form.description} onChange={handleChange} required rows={4}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Requirements</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Requirements</label>
           <textarea name="requirements" value={form.requirements} onChange={handleChange} rows={3}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" />
         </div>
 
         <button type="submit" disabled={submitting}
-          className="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium">
+          className="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium dark:bg-blue-500 dark:hover:bg-blue-600">
           {submitting ? "Posting..." : "Post Job"}
         </button>
       </form>

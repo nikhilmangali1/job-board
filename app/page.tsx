@@ -34,8 +34,8 @@ export default function HomePage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Tech Jobs</h1>
-        <p className="text-gray-600">Find your next opportunity in tech</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Tech Jobs</h1>
+        <p className="text-gray-600 dark:text-gray-400">Find your next opportunity in tech</p>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
@@ -44,12 +44,12 @@ export default function HomePage() {
           placeholder="Search by title, company, or location..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
         />
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          className="px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100"
         >
           <option value="">All Types</option>
           <option value="Full-time">Full-time</option>
@@ -61,25 +61,25 @@ export default function HomePage() {
       </div>
 
       {loading ? (
-        <div className="text-center py-12 text-gray-500">Loading jobs...</div>
+        <div className="text-center py-12 text-gray-500 dark:text-gray-400">Loading jobs...</div>
       ) : jobs.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-gray-500 dark:text-gray-400">
           <p className="text-lg">No jobs found</p>
-          <Link href="/post" className="text-blue-600 hover:underline mt-2 inline-block">Post the first job</Link>
+          <Link href="/post" className="text-blue-600 dark:text-blue-400 hover:underline mt-2 inline-block">Post the first job</Link>
         </div>
       ) : (
         <div className="grid gap-4">
           {jobs.map((job) => (
-            <Link key={job.id} href={`/jobs/${job.id}`} className="block bg-white p-5 rounded-xl shadow-sm border hover:shadow-md transition-shadow">
+            <Link key={job.id} href={`/jobs/${job.id}`} className="block bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-900/50 transition-all">
               <div className="flex justify-between items-start">
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-900">{job.title}</h2>
-                  <p className="text-gray-600 mt-1">{job.company} &middot; {job.location}</p>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{job.title}</h2>
+                  <p className="text-gray-600 dark:text-gray-400 mt-1">{job.company} &middot; {job.location}</p>
                 </div>
-                <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full whitespace-nowrap">{job.type}</span>
+                <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2.5 py-1 rounded-full whitespace-nowrap">{job.type}</span>
               </div>
-              <p className="text-gray-500 mt-3 line-clamp-2">{job.description}</p>
-              {job.salary_range && <p className="text-sm text-green-600 font-medium mt-2">{job.salary_range}</p>}
+              <p className="text-gray-500 dark:text-gray-400 mt-3 line-clamp-2">{job.description}</p>
+              {job.salary_range && <p className="text-sm text-green-600 dark:text-green-400 font-medium mt-2">{job.salary_range}</p>}
             </Link>
           ))}
         </div>
