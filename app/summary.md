@@ -22,12 +22,25 @@ Build a job board with AI Resume Match using Next.js 16 + Neon Postgres + Tailwi
 - **Components**: `ResumeAnalyzer` (paste/upload with `aria-live`), `MatchBadge` (SVG ring, green≥80/yellow≥50/red<50), `SkillChip` (matched/missing), `MatchDetails` (expandable).
 - **Homepage** (`page.tsx`): ResumeAnalyzer above search, Best Match sort option, 80%+ match filter pill, MatchBadge on cards, MatchDetails expandable under description, match computed in fetch `.then()`.
 - **Job detail** (`app/jobs/[id]/page.tsx`): loads resume from localStorage, computes match via `useMemo`, displays MatchBadge + MatchDetails.
+- **Command Palette** (`Ctrl+K`/`Cmd+K`): 14 commands (browse, post, dark mode, remote/full-time/internship/contract filters, clear filters, sort by best match/salary/newest, focus search, clear recently viewed, clear resume, analyze resume), keyboard navigation (arrow keys, Enter, Escape), fuzzy search across labels + keywords, recent items in localStorage (`command_palette_recent`), ARIA dialog/combobox pattern.
+- **Recently Viewed Jobs**: `recentlyViewedStorage` lib (`lib/recentlyViewedStorage.ts`), max 10 items in localStorage, `RecentlyViewed` component on homepage (horizontal scroll with 5 cards, relative date, type badge, initials avatar), save on job detail page mount (`app/jobs/[id]/page.tsx`), clear event listener (`app:clearRecentlyViewed`).
+- **Insights Dashboard** (`/analytics`): server component fetching all jobs via `@/db`, computed analytics via `lib/analytics.ts` (`computeStats`, `computeHiringInsights`, `computeTechTrends`, `computeSalaryDistribution`, `computeLocationHeatmap`, `computeAIInsights`), `InsightsDashboard` client component with stat cards (total jobs, unique companies, avg salary, highest salary) + `TechTrends`/`SalaryDistribution`/`LocationHeatmap` bar charts + `AIInsights` cards.
+- Command Palette command for navigating to `/analytics` ("Market Insights").
 - Build passes (`npx next build` — TS + compilation OK).
+
+### Bug Fixes
+- Hydration error in job detail page: nested `<button>` inside `<Link>` fixed by replacing `onClick` navigation with `<Link>`.
+- "Clear Resume" command now properly clears state and shows toast via custom event `app:clearResume`.
+- Search token matching: `tokenMatch` in `fuzzySearch.ts` now uses `String.includes` on lowercased text, handles null/undefined/empty gracefully.
+- `extractSkills` moved from `resumeParser.ts` (client module with React hooks) to `skillDictionary.ts` (pure module) so server components can import it without taint.
 
 ### In Progress
 - (none)
 
 ### Blocked
+- (none)
+
+### Not Started Yet
 - (none)
 
 ## Key Decisions

@@ -40,3 +40,17 @@ export const SKILL_CATEGORIES: Record<string, string[]> = {
 export const allSkills: string[] = Object.values(SKILL_CATEGORIES).flat();
 
 export const allSkillsLower: string[] = allSkills.map((s) => s.toLowerCase());
+
+export function extractSkills(text: string): string[] {
+  if (!text.trim()) return [];
+  const lower = text.toLowerCase();
+  const found = new Set<string>();
+
+  for (let i = 0; i < allSkillsLower.length; i++) {
+    if (lower.includes(allSkillsLower[i])) {
+      found.add(allSkills[i]);
+    }
+  }
+
+  return Array.from(found).sort();
+}

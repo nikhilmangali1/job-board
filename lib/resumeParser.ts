@@ -1,19 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { allSkills, allSkillsLower } from "./skillDictionary";
+import { extractSkills } from "./skillDictionary";
 
-export function extractSkills(text: string): string[] {
-  if (!text.trim()) return [];
-  const lower = text.toLowerCase();
-  const found = new Set<string>();
-
-  for (let i = 0; i < allSkillsLower.length; i++) {
-    if (lower.includes(allSkillsLower[i])) {
-      found.add(allSkills[i]);
-    }
-  }
-
-  return Array.from(found).sort();
-}
+export { extractSkills };
 
 const RESUME_KEY = "techjobs_resume";
 const SKILLS_KEY = "techjobs_resume_skills";

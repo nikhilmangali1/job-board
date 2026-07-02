@@ -9,6 +9,7 @@ import SkeletonCard from "./components/SkeletonCard";
 import Toast from "./components/Toast";
 import ResumeAnalyzer from "./components/ResumeAnalyzer";
 import RecentlyViewed from "./components/RecentlyViewed";
+import InsightsPreview from "./components/InsightsPreview";
 import MatchBadge from "./components/MatchBadge";
 import MatchDetails from "./components/MatchDetails";
 
@@ -177,9 +178,23 @@ export default function HomePage() {
     <div>
       <Toast message={toastMsg} />
 
+      <div className="mb-6 flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Tech Jobs</h1>
+          <p className="text-gray-600 dark:text-gray-400">Find your next opportunity in tech</p>
+        </div>
+        <Link
+          href="/analytics"
+          className="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          aria-label="View market insights"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Insights
+        </Link>
+      </div>
+
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Tech Jobs</h1>
-        <p className="text-gray-600 dark:text-gray-400">Find your next opportunity in tech</p>
+        <InsightsPreview />
       </div>
 
       <div id="resume-analyzer">
