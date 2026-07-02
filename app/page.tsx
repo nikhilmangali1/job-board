@@ -8,6 +8,7 @@ import { clearResume, loadResume } from "@/lib/resumeParser";
 import SkeletonCard from "./components/SkeletonCard";
 import Toast from "./components/Toast";
 import ResumeAnalyzer from "./components/ResumeAnalyzer";
+import RecentlyViewed from "./components/RecentlyViewed";
 import MatchBadge from "./components/MatchBadge";
 import MatchDetails from "./components/MatchDetails";
 
@@ -315,6 +316,8 @@ export default function HomePage() {
           </button>
         )}
       </div>
+
+      <RecentlyViewed />
 
       {loading ? (
         <div className="grid gap-4">

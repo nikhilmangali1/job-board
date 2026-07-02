@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { relativeDate, getInitials, JOB_TYPE_STYLES } from "@/lib/utils";
 import { computeMatch } from "@/lib/jobMatcher";
 import { loadResume } from "@/lib/resumeParser";
+import useRecentlyViewedJobs from "@/hooks/useRecentlyViewedJobs";
 import SkeletonDetail from "@/app/components/SkeletonDetail";
 import MatchBadge from "@/app/components/MatchBadge";
 import MatchDetails from "@/app/components/MatchDetails";
@@ -28,6 +29,7 @@ export default function JobDetailPage() {
   const [job, setJob] = useState<Job | null>(null);
   const [loading, setLoading] = useState(true);
   const [resumeSkills, setResumeSkills] = useState<string[]>([]);
+  const { addJob } = useRecentlyViewedJobs();
 
   useEffect(() => {
     const { skills } = loadResume();
@@ -40,6 +42,21 @@ export default function JobDetailPage() {
       .then((data) => setJob(data))
       .finally(() => setLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    if (!job) return;
+    addJob({
+      id: job.id,
+      title: job.title,
+      company: job.company,
+      location: job.location,
+      type: job.type,
+      salary_range: job.salary_range,
+      description: job.description,
+      requirements: job.requirements,
+      created_at: job.created_at,
+    });
+  }, [job, addJob]);
 
   const match = useMemo(() => {
     if (!job || resumeSkills.length === 0) return null;

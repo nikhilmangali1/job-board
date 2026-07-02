@@ -180,6 +180,17 @@ export const COMMANDS: Command[] = [
     execute: (ctx) => { ctx.router.push("/?focusSearch=true"); ctx.close(); },
   },
   {
+    id: "clear-recently-viewed",
+    label: "Clear Recently Viewed",
+    description: "Remove all recently viewed jobs from your history",
+    keywords: ["clear", "recent", "recently", "viewed", "jobs", "history", "remove"],
+    icon: <TrashIcon />,
+    execute: (ctx) => {
+      window.dispatchEvent(new CustomEvent("app:clearRecentlyViewed"));
+      ctx.close();
+    },
+  },
+  {
     id: "clear-resume",
     label: "Clear Resume",
     description: "Remove your uploaded resume and match data",
