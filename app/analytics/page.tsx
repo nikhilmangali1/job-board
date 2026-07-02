@@ -2,6 +2,8 @@ import { query } from "@/db";
 import { computeAnalytics, type Job } from "@/lib/analytics";
 import { InsightsDashboard } from "@/app/components/InsightsDashboard";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Analytics",
   description: "Job market insights and trends",
