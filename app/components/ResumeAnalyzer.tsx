@@ -9,10 +9,11 @@ type Props = {
   resumeSkills: string[];
   onAnalyze: (text: string, skills: string[]) => void;
   onClear: () => void;
+  autoExpand?: boolean;
 };
 
-export default function ResumeAnalyzer({ resumeText, resumeSkills, onAnalyze, onClear }: Props) {
-  const [expanded, setExpanded] = useState(false);
+export default function ResumeAnalyzer({ resumeText, resumeSkills, onAnalyze, onClear, autoExpand }: Props) {
+  const [expanded, setExpanded] = useState(autoExpand ?? false);
   const [inputText, setInputText] = useState(resumeText);
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState("");

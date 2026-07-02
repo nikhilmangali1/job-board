@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import ThemeProvider from "./ThemeProvider";
-import ThemeToggle from "./ThemeToggle";
+import NavClient from "./components/NavClient";
 import ScrollToTop from "./components/ScrollToTop";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/post" className="text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600" aria-label="Post a new job">
                   Post a Job
                 </Link>
-                <ThemeToggle />
+                <NavClient />
               </div>
             </div>
           </nav>

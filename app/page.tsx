@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { relativeDate, getInitials, JOB_TYPE_STYLES } from "@/lib/utils";
 import { computeMatch } from "@/lib/jobMatcher";
-import { loadResume } from "@/lib/resumeParser";
+import { clearResume, loadResume } from "@/lib/resumeParser";
 import SkeletonCard from "./components/SkeletonCard";
 import Toast from "./components/Toast";
 import ResumeAnalyzer from "./components/ResumeAnalyzer";
@@ -39,6 +39,8 @@ export default function HomePage() {
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const [resumeText, setResumeText] = useState("");
   const [resumeSkills, setResumeSkills] = useState<string[]>([]);
+  const searchRef = useRef<HTMLInputElement>(null);
+  const [autoExpandResume, setAutoExpandResume] = useState(false);
   const [matchFilter, setMatchFilter] = useState(false);
 
   useEffect(() => {
@@ -56,6 +58,8 @@ export default function HomePage() {
     const so = params.get("sort") || "newest";
     const msg = params.get("toast");
     const mf = params.get("matchFilter") === "true";
+    const focusSearch = params.get("focusSearch") === "true";
+    const analyzeResume = params.get("analyzeResume") === "true";
 
     setTimeout(() => {
       setSearchInput(s);
@@ -67,6 +71,21 @@ export default function HomePage() {
       setSort(so);
       setMatchFilter(mf);
     }, 0);
+
+    if (focusSearch) {
+      const cleanUrl = window.location.pathname + window.location.search.replace(/[?&]focusSearch=true/g, "").replace(/^\?$/, "");
+      window.history.replaceState({}, "", cleanUrl);
+      setTimeout(() => searchRef.current?.focus(), 100);
+    }
+
+    if (analyzeResume) {
+      const cleanUrl = window.location.pathname + window.location.search.replace(/[?&]analyzeResume=true/g, "").replace(/^\?$/, "");
+      window.history.replaceState({}, "", cleanUrl);
+      setTimeout(() => setAutoExpandResume(true), 0);
+      setTimeout(() => {
+        document.getElementById("resume-analyzer")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    }
 
     if (msg) {
       const decoded = decodeURIComponent(msg);
@@ -120,6 +139,19 @@ export default function HomePage() {
   }, [search, typeFilter, locationFilter, minSalary, remoteOnly, sort, resumeSkills, matchFilter]);
 
   useEffect(() => {
+    const handler = () => {
+      clearResume();
+      setResumeText("");
+      setResumeSkills([]);
+      setMatchFilter(false);
+      setToastMsg("Resume cleared");
+      setTimeout(() => setToastMsg(null), 3050);
+    };
+    window.addEventListener("app:clearResume", handler);
+    return () => window.removeEventListener("app:clearResume", handler);
+  }, []);
+
+  useEffect(() => {
     const timer = setTimeout(() => setSearch(searchInput), 300);
     return () => clearTimeout(timer);
   }, [searchInput]);
@@ -149,12 +181,15 @@ export default function HomePage() {
         <p className="text-gray-600 dark:text-gray-400">Find your next opportunity in tech</p>
       </div>
 
-      <ResumeAnalyzer
-        resumeText={resumeText}
-        resumeSkills={resumeSkills}
-        onAnalyze={(text, skills) => { setResumeText(text); setResumeSkills(skills); }}
-        onClear={() => { setResumeText(""); setResumeSkills([]); }}
-      />
+      <div id="resume-analyzer">
+        <ResumeAnalyzer
+          resumeText={resumeText}
+          resumeSkills={resumeSkills}
+          onAnalyze={(text, skills) => { setResumeText(text); setResumeSkills(skills); }}
+          onClear={() => { setResumeText(""); setResumeSkills([]); }}
+          autoExpand={autoExpandResume}
+        />
+      </div>
 
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
@@ -163,6 +198,7 @@ export default function HomePage() {
             placeholder="Search by title, company, or location..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
+            ref={searchRef}
             className="w-full px-4 py-2.5 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
             aria-label="Search jobs"
           />
