@@ -51,7 +51,7 @@ A modern job board built with Next.js, Neon PostgreSQL, and deployed on Vercel w
 
 ### 6. Responsive Design
 - Works on desktop, tablet, and mobile
-- Collapsible navigation on small screens
+- Collapsible navigation on small screens 
 
 ### 7. CI/CD Pipeline
 - **GitHub Actions** workflow runs on every push to `main`
