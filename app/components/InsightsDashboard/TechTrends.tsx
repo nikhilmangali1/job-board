@@ -20,7 +20,7 @@ export default function TechTrends({ trends, onFilter }: Props) {
         Technology Trends
       </h3>
       <div className="space-y-2">
-        {trends.map((trend, i) => (
+        {trends.map((trend) => (
           <button
             key={trend.skill}
             onClick={onFilter ? () => onFilter({ type: "search", value: trend.skill }) : undefined}

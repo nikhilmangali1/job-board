@@ -4,7 +4,13 @@ import { useCallback, useEffect, useState } from "react";
 import { loadRecentlyViewed, addRecentlyViewed, clearRecentlyViewed as clearStorage, type RecentlyViewedJob } from "@/lib/recentlyViewedStorage";
 
 export default function useRecentlyViewedJobs() {
-  const [jobs, setJobs] = useState<RecentlyViewedJob[]>(() => loadRecentlyViewed());
+  const [jobs, setJobs] = useState<RecentlyViewedJob[]>([]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setJobs(loadRecentlyViewed());
+    }, 0);
+  }, []);
 
   useEffect(() => {
     const handler = () => {

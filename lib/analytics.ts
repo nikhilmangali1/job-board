@@ -1,7 +1,7 @@
 import { extractSkills } from "./skillDictionary";
 import { parseSalary, getSalaryBucket } from "./salaryParser";
 
-type Job = {
+export type Job = {
   id: number;
   title: string;
   company: string;

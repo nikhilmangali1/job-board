@@ -28,7 +28,7 @@ function StatCard({ label, value, icon }: { label: string; value: string | numbe
 
 export default function InsightsDashboard({ data, children }: Props) {
   const {
-    stats: { totalJobs, totalCompanies, avgSalary, highestSalary, jobsThisWeek },
+    stats: { totalJobs, totalCompanies, avgSalary, highestSalary },
     techTrends,
     salaryDistribution,
     locationHeatmap: locations,

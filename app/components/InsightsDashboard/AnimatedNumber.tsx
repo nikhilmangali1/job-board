@@ -12,17 +12,17 @@ type Props = {
 
 export default function AnimatedNumber({ value, suffix, prefix, className, decimals = 0 }: Props) {
   const [display, setDisplay] = useState(0);
+  const [started, setStarted] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
-  const hasAnimated = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || hasAnimated.current) return;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting || hasAnimated.current) return;
-        hasAnimated.current = true;
+        if (!entry.isIntersecting) return;
+        setStarted(true);
         observer.disconnect();
 
         const duration = 300;
@@ -49,7 +49,7 @@ export default function AnimatedNumber({ value, suffix, prefix, className, decim
 
   return (
     <span ref={ref} className={className} aria-live="polite">
-      {prefix || ""}{hasAnimated.current ? display.toFixed(decimals) : "0"}{suffix || ""}
+      {prefix || ""}{started ? display.toFixed(decimals) : "0"}{suffix || ""}
     </span>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { type Stats } from "@/lib/analytics";
-import { formatSalary } from "@/lib/salaryParser";
 import AnimatedNumber from "./AnimatedNumber";
 
 type Props = {

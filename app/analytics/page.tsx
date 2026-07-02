@@ -1,5 +1,5 @@
 import { query } from "@/db";
-import { computeAnalytics } from "@/lib/analytics";
+import { computeAnalytics, type Job } from "@/lib/analytics";
 import { InsightsDashboard } from "@/app/components/InsightsDashboard";
 
 export const metadata = {
@@ -8,8 +8,8 @@ export const metadata = {
 };
 
 export default async function AnalyticsPage() {
-  const jobs = await query`SELECT * FROM jobs ORDER BY created_at DESC`;
-  const data = computeAnalytics(jobs as any);
+  const jobs = (await query`SELECT * FROM jobs ORDER BY created_at DESC`) as Job[];
+  const data = computeAnalytics(jobs);
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
