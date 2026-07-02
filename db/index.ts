@@ -18,7 +18,9 @@ export async function initDB() {
       salary_range VARCHAR(100),
       description TEXT NOT NULL,
       requirements TEXT,
+      apply_url VARCHAR(500),
       created_at TIMESTAMP DEFAULT NOW()
     )
   `;
+  await query`ALTER TABLE jobs ADD COLUMN IF NOT EXISTS apply_url VARCHAR(500)`;
 }

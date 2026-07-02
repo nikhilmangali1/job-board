@@ -1,0 +1,45 @@
+## Anchored Summary (last updated: after AI Resume Match integration)
+
+## Goal
+Build a job board with AI Resume Match using Next.js 16 + Neon Postgres + Tailwind CSS v4, with CI/CD and full accessibility.
+
+## Constraints
+- No commits by assistant.
+- Entirely client-side Resume Match — no DB/API changes.
+- Preserve all existing functionality.
+- Follow existing code style (Tailwind v4 dark variant, `"use client"`, wrapped setState for ESLint rule).
+- All `setState` in `useEffect` wrapped in `setTimeout(0)` or async callbacks.
+
+## Progress
+### Done
+- Dark/light mode, hydration fix, lazy localStorage initializer.
+- Skeleton loading, relative dates, filter pills, colored type badges, company initials avatar, animated page transitions, success toast, search debounce, empty state.
+- Sort (newest/oldest/salary), job count, clear search, inline validation, spinning loader, favicon SVG.
+- Apply Now button, collapsible filter panel (location, min salary, remote toggle), draft save to localStorage, preview modal, char counter, skip-to-content, ScrollToTop, ARIA attributes.
+- Sharable URL state for all filters/sort.
+- DB migration: `apply_url` column.
+- **AI Resume Match**: skill dictionary (7 categories, 80+ skills), `extractSkills()`/`saveResume()`/`loadResume()`, `computeMatch()` (×3 title, ×2 requirements, ×1 description).
+- **Components**: `ResumeAnalyzer` (paste/upload with `aria-live`), `MatchBadge` (SVG ring, green≥80/yellow≥50/red<50), `SkillChip` (matched/missing), `MatchDetails` (expandable).
+- **Homepage** (`page.tsx`): ResumeAnalyzer above search, Best Match sort option, 80%+ match filter pill, MatchBadge on cards, MatchDetails expandable under description, match computed in fetch `.then()`.
+- **Job detail** (`app/jobs/[id]/page.tsx`): loads resume from localStorage, computes match via `useMemo`, displays MatchBadge + MatchDetails.
+- Build passes (`npx next build` — TS + compilation OK).
+
+### In Progress
+- (none)
+
+### Blocked
+- (none)
+
+## Key Decisions
+- Resume Match entirely client-side: localStorage (`techjobs_resume` + `techjobs_resume_skills`), no API/DB changes.
+- `extractSkills()` uses `String.includes()` on lowercased text vs dictionary.
+- Match computed in fetch `.then()` (homepage) and `useMemo` (detail page) — avoids extra renders.
+- 80%+ filter is client-side on `displayJobs` array.
+- "bestmatch" sort not sent to API (returns default order), frontend sorts computed results.
+- `ResumeAnalyzer` saves to localStorage and calls `onAnalyze(text, skills)` — parent updates state from callback.
+- MatchDetails shows below card description on homepage, in a highlighted section on detail page.
+
+## Next Steps
+- Run lint check (`npm run lint`).
+- User to test locally, then commit + push.
+
