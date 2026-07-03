@@ -13,6 +13,7 @@ export async function GET(request: Request) {
   const locationFilter = searchParams.get("location") || "";
   const minSalary = searchParams.get("minSalary") || "";
   const remoteOnly = searchParams.get("remote") === "true";
+  const companyFilter = searchParams.get("company") || "";
   const sort = searchParams.get("sort") || "newest";
 
   const jobs = await query`
@@ -27,6 +28,7 @@ export async function GET(request: Request) {
     AND (${locationFilter === ""} OR location ILIKE ${"%" + locationFilter + "%"})
     AND (${minSalary === ""} OR (salary_range ~ '[0-9]' AND CAST((regexp_match(salary_range, '[0-9]+'))[1] AS INTEGER) >= ${parseInt(minSalary) || 0}))
     AND (${!remoteOnly} OR type = 'Remote')
+    AND (${companyFilter === ""} OR company ILIKE ${"%" + companyFilter + "%"})
     ORDER BY created_at DESC
   `;
 
@@ -54,7 +56,8 @@ export async function POST(request: Request) {
     `;
 
     return Response.json(result[0], { status: 201 });
-  } catch {
-    return Response.json({ error: "Failed to create job" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to create job";
+    return Response.json({ error: message }, { status: 500 });
   }
 }

@@ -16,7 +16,7 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       title={mounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      className="text-sm p-2 rounded-lg border dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+      className="btn-secondary p-2 rounded-xl"
       aria-label={mounted && theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
     >
       {mounted && theme === "dark" ? (

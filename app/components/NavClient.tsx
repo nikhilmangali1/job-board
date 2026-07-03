@@ -42,16 +42,16 @@ export default function NavClient() {
       <div className="relative">
         <button
           onClick={open}
-          className="flex items-center gap-1.5 px-2.5 py-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+          className="btn-secondary flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg"
           aria-label="Open command palette"
-          title={isMac ? "Search (⌘K)" : "Search (Ctrl+K)"}
+          title={isMac ? "Search (\u2318K)" : "Search (Ctrl+K)"}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
           </svg>
           <span className="hidden sm:inline text-xs">Search</span>
-          <kbd className="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.5 ml-1 text-[10px] font-medium text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded">
-            {isMac ? "⌘" : "Ctrl"}
+          <kbd className="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.5 ml-1 text-[10px] font-medium text-gray-400 dark:text-gray-500 bg-white/50 dark:bg-white/5 border border-gray-200/50 dark:border-white/10 rounded">
+            {isMac ? "\u2318" : "Ctrl"}
             <span>K</span>
           </kbd>
         </button>

@@ -28,9 +28,9 @@ export default function MatchBadge({ score, size = "sm" }: Props) {
   }
 
   let color: string;
-  if (score >= 80) color = "text-green-500";
-  else if (score >= 50) color = "text-yellow-500";
-  else color = "text-red-500";
+  if (score >= 80) color = "text-emerald-500";
+  else if (score >= 50) color = "text-amber-500";
+  else color = "text-rose-500";
 
   const dashOffset = circ - (circ * Math.min(score, 100)) / 100;
 

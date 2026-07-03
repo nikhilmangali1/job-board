@@ -30,12 +30,14 @@ export default function RecentlyViewed() {
   if (displayJobs.length === 0) return null;
 
   return (
-    <section aria-label="Recently viewed jobs" className="mb-8 animate-fade-in">
+    <section aria-label="Recently viewed jobs" className="animate-fade-in">
       <div className="flex items-center gap-2 mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 dark:text-gray-500">
-          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-        </svg>
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-100 to-violet-100 dark:from-indigo-900/30 dark:to-violet-900/30 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-600 dark:text-indigo-400">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h2 className="label">
           Recently Viewed
         </h2>
       </div>
@@ -46,15 +48,15 @@ export default function RecentlyViewed() {
             <Link
               key={job.id}
               href={`/jobs/${job.id}`}
-              className="group bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-900/50 hover:scale-[1.02] transition-all"
+              className="group surface-card rounded-2xl p-4"
             >
               <div className="flex items-start gap-3 min-w-0">
-                <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center text-xs font-semibold shrink-0 mt-0.5">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-100 to-violet-100 dark:from-indigo-900/30 dark:to-violet-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                   {getInitials(job.company)}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                       {job.title}
                     </h3>
                     {resumeSkills.length > 0 && <MatchBadge score={match?.score ?? null} />}
@@ -63,7 +65,7 @@ export default function RecentlyViewed() {
                     {job.company} &middot; {job.location}
                   </p>
                   <div className="flex items-center gap-2 mt-2">
-                    <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${JOB_TYPE_STYLES[job.type] || "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"}`}>
+                    <span className={`badge ${JOB_TYPE_STYLES[job.type] || "badge-primary"}`}>
                       {job.type}
                     </span>
                     <span className="text-[10px] text-gray-400 dark:text-gray-500">
